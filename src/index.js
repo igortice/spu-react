@@ -1,4 +1,6 @@
-import App from './App';
+import './assets/css/styles.css';
+
+import App from './configs/App';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
