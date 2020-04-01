@@ -19,6 +19,11 @@ export const ROUTES_CONFIG = [
   }
 ];
 
+export const ROUTES = ROUTES_CONFIG.map(route => ({
+  path: route.path,
+  desc: route.desc
+}));
+
 export const RoutesConfig = () => (
   <Switch>
     {ROUTES_CONFIG.map((route, i) => (

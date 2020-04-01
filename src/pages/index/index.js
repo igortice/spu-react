@@ -1,24 +1,21 @@
 import { List, Typography } from 'antd';
 
 import LayoutIframe from '~/layouts/LayoutIframe';
+import { Link } from 'react-router-dom';
+import { ROUTES } from '~/configs/Routes';
 import React from 'react';
-
-const data = [
-  {
-    pagina: 'Abertura de Processo'
-  }
-];
-const { Text } = Typography;
 
 const Index = () => (
   <LayoutIframe>
     <List
       header={<div>Páginas</div>}
       bordered
-      dataSource={data}
+      dataSource={ROUTES}
       renderItem={item => (
         <List.Item>
-          <Text mark>{item.pagina}</Text>
+          <Link to={item.path}>
+            <Typography.Text mark>{item.desc}</Typography.Text>
+          </Link>
         </List.Item>
       )}
     />
