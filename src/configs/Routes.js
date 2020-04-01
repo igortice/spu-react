@@ -2,17 +2,32 @@ import { Route, Switch } from 'react-router-dom';
 
 import Abertura from '~/pages/processo/Abertura';
 import Index from '~/pages/index';
+import NotFound from '~/pages/NotFound';
 import React from 'react';
 
-const Routes = () => (
+export const ROUTES_CONFIG = [
+  {
+    exact: true,
+    path: '/',
+    component: <Index />,
+    desc: 'Index'
+  },
+  {
+    path: '/processo/abertura',
+    component: <Abertura />,
+    desc: 'Abertura de Processo'
+  }
+];
+
+export const RoutesConfig = () => (
   <Switch>
-    <Route exact path="/">
-      <Index />
-    </Route>
-    <Route path="/processo/abertura">
-      <Abertura />
+    {ROUTES_CONFIG.map((route, i) => (
+      <Route key={i} path={route.path} exact={route.exact}>
+        {route.component}
+      </Route>
+    ))}
+    <Route path="*">
+      <NotFound />
     </Route>
   </Switch>
 );
-
-export default Routes;

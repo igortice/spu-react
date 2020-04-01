@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Routes from '~/configs/Routes';
+import { RoutesConfig } from '~/configs/Routes';
 
 export default () => (
   <Router>
-    <Routes />
+    <RoutesConfig />
   </Router>
 );
