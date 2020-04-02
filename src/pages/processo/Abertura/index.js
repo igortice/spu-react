@@ -1,40 +1,26 @@
-import { Button, Card, Divider, Drawer, PageHeader, Steps } from 'antd';
-import {
-  FileSearchOutlined,
-  FormOutlined,
-  ScheduleOutlined,
-  SolutionOutlined,
-  UploadOutlined
-} from '@ant-design/icons';
+import { Button, Card, PageHeader } from 'antd';
 import React, { useState } from 'react';
 
-const { Step } = Steps;
-
-const steps = [
-  {
-    title: 'Dados Gerais',
-    icon: <FormOutlined />
-  },
-  {
-    title: 'Manifestante',
-    icon: <SolutionOutlined />
-  },
-  {
-    title: 'Documentos',
-    icon: <UploadOutlined />
-  },
-  {
-    title: 'Finalização',
-    icon: <ScheduleOutlined />
-  }
-];
+import EtapaForm from '~/components/processo/abertura/EtapaForm';
+import Etapas from '~/components/processo/abertura/Etapas';
+import { FileSearchOutlined } from '@ant-design/icons';
+import Resumo from '~/components/processo/abertura/Resumo';
 
 export default () => {
-  const [currentStep, setCurrentStep] = useState(0);
-  const [showDrawer, setShowDrawer] = useState(false);
+  /**
+   * CONFIG ETAPAS
+   */
+  const [currentEtapa, setCurrentEtapa] = useState(0);
+  const handleCurrentEtapa = etapa => {
+    setCurrentEtapa(etapa);
+  };
 
-  const canSetCurrentStep = current => {
-    setCurrentStep(current);
+  /**
+   * CONFIG RESUMO
+   */
+  const [showResumo, setShowResumo] = useState(false);
+  const handleShowResumo = show => {
+    setShowResumo(show);
   };
 
   return (
@@ -53,30 +39,20 @@ export default () => {
             style={{ padding: '0' }}
             type="link"
             title="visualizar resumo"
-            onClick={() => setShowDrawer(true)}
+            onClick={() => handleShowResumo(true)}
           >
             <FileSearchOutlined />
           </Button>
         }
       >
-        <Steps current={currentStep} size="small" onChange={canSetCurrentStep}>
-          {steps.map((step, idx) => (
-            <Step key={idx} title={step.title} icon={step.icon} />
-          ))}
-        </Steps>
-        <Divider dashed>
-          Etapa {currentStep + 1} - {steps[currentStep].title}
-        </Divider>
-        <Drawer
-          title="Detalhes do Processo"
-          width={540}
-          placement="right"
-          closable={false}
-          visible={showDrawer}
-          onClose={() => setShowDrawer(false)}
-        >
-          OI
-        </Drawer>
+        <Etapas
+          currentEtapa={currentEtapa}
+          handleCurrentEtapa={handleCurrentEtapa}
+        />
+
+        <Resumo showResumo={showResumo} handleShowResumo={handleShowResumo} />
+
+        <EtapaForm currentEtapa={currentEtapa} />
       </Card>
     </>
   );
