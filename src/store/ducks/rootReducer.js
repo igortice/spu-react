@@ -1,2 +1,4 @@
+import aberturaProcessoDuck from './aberturaProcessoDuck';
 import { combineReducers } from 'redux';
-export default combineReducers({});
+
+export default combineReducers({ aberturaProcesso: aberturaProcessoDuck });
