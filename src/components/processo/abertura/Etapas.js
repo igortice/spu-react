@@ -3,7 +3,7 @@ import {
   FormOutlined,
   ScheduleOutlined,
   SolutionOutlined,
-  UploadOutlined
+  UploadOutlined,
 } from '@ant-design/icons';
 import React, { useState } from 'react';
 
@@ -12,26 +12,26 @@ const { Step } = Steps;
 const steps = [
   {
     title: 'Dados Gerais',
-    icon: <FormOutlined />
+    icon: <FormOutlined />,
   },
   {
     title: 'Manifestante',
-    icon: <SolutionOutlined />
+    icon: <SolutionOutlined />,
   },
   {
     title: 'Documentos',
-    icon: <UploadOutlined />
+    icon: <UploadOutlined />,
   },
   {
     title: 'Finalização',
-    icon: <ScheduleOutlined />
-  }
+    icon: <ScheduleOutlined />,
+  },
 ];
 
 export default ({ currentEtapa, handleCurrentEtapa }) => {
   const [currentStep, setCurrentStep] = useState(currentEtapa);
 
-  const canSetCurrentStep = current => {
+  const canSetCurrentStep = (current) => {
     setCurrentStep(current);
     handleCurrentEtapa(current);
   };

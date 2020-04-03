@@ -11,7 +11,7 @@ export default () => {
    * CONFIG ETAPAS
    */
   const [currentEtapa, setCurrentEtapa] = useState(0);
-  const handleCurrentEtapa = etapa => {
+  const handleCurrentEtapa = (etapa) => {
     setCurrentEtapa(etapa);
   };
 
@@ -19,41 +19,39 @@ export default () => {
    * CONFIG RESUMO
    */
   const [showResumo, setShowResumo] = useState(false);
-  const handleShowResumo = show => {
+  const handleShowResumo = (show) => {
     setShowResumo(show);
   };
 
   return (
-    <>
-      <Card
-        style={{ minHeight: '90vh' }}
-        title={
-          <PageHeader
-            title="Abertura de Processo"
-            onBack={null}
-            style={{ padding: 0 }}
-          />
-        }
-        extra={
-          <Button
-            style={{ padding: '0' }}
-            type="link"
-            title="visualizar resumo"
-            onClick={() => handleShowResumo(true)}
-          >
-            <FileSearchOutlined />
-          </Button>
-        }
-      >
-        <Etapas
-          currentEtapa={currentEtapa}
-          handleCurrentEtapa={handleCurrentEtapa}
+    <Card
+      style={{ minHeight: '90vh' }}
+      title={
+        <PageHeader
+          title="Abertura de Processo"
+          onBack={null}
+          style={{ padding: 0 }}
         />
+      }
+      extra={
+        <Button
+          style={{ padding: '0' }}
+          type="link"
+          title="visualizar resumo"
+          onClick={() => handleShowResumo(true)}
+        >
+          <FileSearchOutlined />
+        </Button>
+      }
+    >
+      <Etapas
+        currentEtapa={currentEtapa}
+        handleCurrentEtapa={handleCurrentEtapa}
+      />
 
-        <Resumo showResumo={showResumo} handleShowResumo={handleShowResumo} />
+      <Resumo showResumo={showResumo} handleShowResumo={handleShowResumo} />
 
-        <EtapaForm currentEtapa={currentEtapa} />
-      </Card>
-    </>
+      <EtapaForm currentEtapa={currentEtapa} />
+    </Card>
   );
 };
