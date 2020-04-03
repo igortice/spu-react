@@ -5,7 +5,7 @@ import {
   SolutionOutlined,
   UploadOutlined,
 } from '@ant-design/icons';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const { Step } = Steps;
 
@@ -28,12 +28,22 @@ const steps = [
   },
 ];
 
-export default ({ currentEtapa, handleCurrentEtapa }) => {
-  const [currentStep, setCurrentStep] = useState(currentEtapa);
+export default ({ currentEtapa, handleCurrentEtapa, showSteps }) => {
+  const [canShowStep, setCanShowStep] = useState(showSteps);
+
+  useEffect(() => {
+    setCanShowStep(showSteps);
+  }, [showSteps]);
+
+  const [currentStep, setCurrentStep] = useState(
+    showSteps[currentEtapa] ? currentEtapa : null
+  );
 
   const canSetCurrentStep = (current) => {
-    setCurrentStep(current);
-    handleCurrentEtapa(current);
+    if (canShowStep[current]) {
+      setCurrentStep(current);
+      handleCurrentEtapa(current);
+    }
   };
 
   return (
@@ -44,7 +54,7 @@ export default ({ currentEtapa, handleCurrentEtapa }) => {
         ))}
       </Steps>
       <Divider dashed>
-        Etapa {currentStep + 1} - {steps[currentStep].title}
+        Etapa {currentStep + 1} - {steps[currentStep]?.title}
       </Divider>
     </>
   );

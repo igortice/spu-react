@@ -16,6 +16,18 @@ export default () => {
   };
 
   /**
+   * CONFIG SHOW ETAPAS
+   */
+  const [showEtapas, setShowEtapas] = useState([true, false, false, false]);
+  const handleShowEtapas = (index, bool) => {
+    setShowEtapas((etapas) => {
+      etapas[index] = bool;
+
+      return etapas;
+    });
+  };
+
+  /**
    * CONFIG RESUMO
    */
   const [showResumo, setShowResumo] = useState(false);
@@ -47,6 +59,7 @@ export default () => {
       <Etapas
         currentEtapa={currentEtapa}
         handleCurrentEtapa={handleCurrentEtapa}
+        showSteps={showEtapas}
       />
 
       <Resumo showResumo={showResumo} handleShowResumo={handleShowResumo} />
