@@ -18,7 +18,9 @@ export default () => {
   /**
    * CONFIG SHOW ETAPAS
    */
+  // eslint-disable-next-line
   const [showEtapas, setShowEtapas] = useState([true, false, false, false]);
+  // eslint-disable-next-line
   const handleShowEtapas = (index, bool) => {
     setShowEtapas((etapas) => {
       etapas[index] = bool;
