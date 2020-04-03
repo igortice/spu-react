@@ -1,5 +1,4 @@
-import { Collapse, Typography } from 'antd';
-
+import { Collapse } from 'antd';
 import React from 'react';
 
 export default () => {
@@ -13,7 +12,7 @@ export default () => {
         <Collapse.Panel header={<strong>Dados Gerais</strong>} key="1">
           <div>text</div>
         </Collapse.Panel>
-        <Collapse.Panel key="2">
+        <Collapse.Panel header={<strong>Dados Gerais</strong>} key="2">
           <div>text</div>
         </Collapse.Panel>
         <Collapse.Panel header={<strong>Descrição do Processo</strong>} key="3">
