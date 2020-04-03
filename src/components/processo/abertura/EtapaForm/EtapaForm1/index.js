@@ -1,4 +1,5 @@
-import { Collapse } from 'antd';
+import { Collapse, Typography } from 'antd';
+
 import React from 'react';
 
 export default () => {
@@ -7,12 +8,12 @@ export default () => {
       <Collapse
         defaultActiveKey={['1']}
         expandIconPosition={'right'}
-        bordered={true}
+        bordered={false}
       >
-        <Collapse.Panel header={<strong>Seleção dos Tipos </strong>} key="1">
+        <Collapse.Panel header={<strong>Dados Gerais</strong>} key="1">
           <div>text</div>
         </Collapse.Panel>
-        <Collapse.Panel header={<strong>Dados Gerais</strong>} key="2">
+        <Collapse.Panel key="2">
           <div>text</div>
         </Collapse.Panel>
         <Collapse.Panel header={<strong>Descrição do Processo</strong>} key="3">

@@ -33,7 +33,7 @@ export default ({ currentEtapa, handleCurrentEtapa }) => {
 
   const canSetCurrentStep = current => {
     setCurrentStep(current);
-    handleCurrentEtapa(current)
+    handleCurrentEtapa(current);
   };
 
   return (
