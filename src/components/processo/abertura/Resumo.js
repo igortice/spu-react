@@ -4,7 +4,22 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 export default ({ showResumo, handleShowResumo }) => {
-  const { form } = useSelector((state) => state.aberturaProcesso);
+  const {
+    form: { dadosGerais },
+    tiposAssuntos,
+  } = useSelector((state) => state.aberturaProcesso);
+
+  const findTipo = () => {
+    return tiposAssuntos.find(
+      (tipo) => tipo.value === dadosGerais.tipoAssunto[0]
+    );
+  };
+
+  const findAssunto = () => {
+    return findTipo()?.children.find(
+      (assunto) => assunto.value === dadosGerais.tipoAssunto[1]
+    );
+  };
 
   return (
     <>
@@ -20,12 +35,16 @@ export default ({ showResumo, handleShowResumo }) => {
         <Row>
           <Col span={12}>
             TIPO DE DOCUMENTO:{' '}
-            <strong>
-              {form.dadosGerais.tipoVirtual ? 'VIRTUAL' : 'FÍSICO'}
-            </strong>
+            <strong>{dadosGerais.tipoVirtual ? 'VIRTUAL' : 'FÍSICO'}</strong>
           </Col>
           <Col span={12}>
-            DATA ABERTURA: <strong>{form.dadosGerais.dataAbertura}</strong>
+            DATA ABERTURA: <strong>{dadosGerais.dataAbertura}</strong>
+          </Col>
+          <Col span={12}>
+            TIPO PROCESSO: <strong>{findTipo()?.label || '-'}</strong>
+          </Col>
+          <Col span={12}>
+            ASSUNTO PROCESSO: <strong>{findAssunto()?.label || '-'}</strong>
           </Col>
         </Row>
         <Divider dashed />
@@ -33,12 +52,10 @@ export default ({ showResumo, handleShowResumo }) => {
         <Row>
           <Col span={12}>
             TIPO DE DOCUMENTO:{' '}
-            <strong>
-              {form.dadosGerais.tipoVirtual ? 'VIRTUAL' : 'FÍSICO'}
-            </strong>
+            <strong>{dadosGerais.tipoVirtual ? 'VIRTUAL' : 'FÍSICO'}</strong>
           </Col>
           <Col span={12}>
-            DATA ABERTURA: <strong>{form.dadosGerais.dataAbertura}</strong>
+            DATA ABERTURA: <strong>{dadosGerais.dataAbertura}</strong>
           </Col>
         </Row>
         <Divider dashed />
@@ -46,12 +63,10 @@ export default ({ showResumo, handleShowResumo }) => {
         <Row>
           <Col span={12}>
             TIPO DE DOCUMENTO:{' '}
-            <strong>
-              {form.dadosGerais.tipoVirtual ? 'VIRTUAL' : 'FÍSICO'}
-            </strong>
+            <strong>{dadosGerais.tipoVirtual ? 'VIRTUAL' : 'FÍSICO'}</strong>
           </Col>
           <Col span={12}>
-            DATA ABERTURA: <strong>{form.dadosGerais.dataAbertura}</strong>
+            DATA ABERTURA: <strong>{dadosGerais.dataAbertura}</strong>
           </Col>
         </Row>
       </Drawer>

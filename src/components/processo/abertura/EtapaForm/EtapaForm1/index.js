@@ -1,24 +1,38 @@
-import { Button, Collapse, Form, Input, Radio, Typography } from 'antd';
+import {
+  Button,
+  Cascader,
+  Collapse,
+  Form,
+  Input,
+  Radio,
+  Typography,
+} from 'antd';
 import {
   CalendarOutlined,
   CloudUploadOutlined,
   CopyOutlined,
   SolutionOutlined,
 } from '@ant-design/icons';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { AberturaProcessoActions } from '~/store/ducks/aberturaProcessoDuck';
-import React from 'react';
 
 const { Title, Text } = Typography;
 
 export default () => {
-  const formDadosGerais = useSelector(
-    (state) => state.aberturaProcesso.form.dadosGerais
-  );
+  const [form] = Form.useForm();
+  const {
+    form: { dadosGerais: formDadosGerais },
+    tiposAssuntos,
+    loading,
+  } = useSelector((state) => state.aberturaProcesso);
+
   const dispatch = useDispatch();
 
-  const [form] = Form.useForm();
+  useEffect(() => {
+    dispatch(AberturaProcessoActions.fetchTipos());
+  }, [dispatch]);
 
   const onFinish = (values) => {
     console.log('Success:', values);
@@ -30,6 +44,18 @@ export default () => {
 
   const onValuesChange = (values) => {
     dispatch(AberturaProcessoActions.changeFormDadosGerais(values));
+  };
+
+  const loadOptionsAssuntos = (selectedOptions) => {
+    const targetOption = selectedOptions[selectedOptions.length - 1];
+    targetOption.loading = true;
+    dispatch(AberturaProcessoActions.loading(true));
+    dispatch(AberturaProcessoActions.fetchAssuntos(targetOption.value)).then(
+      (res) => {
+        targetOption.loading = false;
+        dispatch(AberturaProcessoActions.loading(false));
+      }
+    );
   };
 
   return (
@@ -78,6 +104,20 @@ export default () => {
               label={<strong>DATA ABERTURA</strong>}
             >
               <Input addonAfter={<CalendarOutlined />} disabled />
+            </Form.Item>
+
+            <Form.Item
+              name="tipoAssunto"
+              label={<strong>TIPO/ASSUNTO</strong>}
+              rules={[
+                { required: true, message: 'TIPO/ASSUNTO é obrigatório!' },
+              ]}
+            >
+              <Cascader
+                options={tiposAssuntos}
+                placeholder="Selecione o Tipo e depois o seu Assunto"
+                loadData={loadOptionsAssuntos}
+              />
             </Form.Item>
           </Collapse.Panel>
           <Collapse.Panel
