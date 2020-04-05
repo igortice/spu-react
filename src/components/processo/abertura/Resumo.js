@@ -1,4 +1,4 @@
-import { Col, Divider, Drawer, Row } from 'antd';
+import { Col, Descriptions, Divider, Drawer, Row } from 'antd';
 
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -31,44 +31,43 @@ export default ({ showResumo, handleShowResumo }) => {
         visible={showResumo}
         onClose={() => handleShowResumo(false)}
       >
-        <h3>Dados Gerais</h3>
-        <Row>
-          <Col span={12}>
-            TIPO DE DOCUMENTO:{' '}
+        <Descriptions
+          size="small"
+          layout="vertical"
+          title="Dados Gerais"
+          bordered
+        >
+          <Descriptions.Item label="TIPO DE DOCUMENTO" span={2}>
             <strong>{dadosGerais.tipoVirtual ? 'VIRTUAL' : 'FÍSICO'}</strong>
-          </Col>
-          <Col span={12}>
-            DATA ABERTURA: <strong>{dadosGerais.dataAbertura}</strong>
-          </Col>
-          <Col span={12}>
-            TIPO PROCESSO: <strong>{findTipo()?.label || '-'}</strong>
-          </Col>
-          <Col span={12}>
-            ASSUNTO PROCESSO: <strong>{findAssunto()?.label || '-'}</strong>
-          </Col>
-        </Row>
+          </Descriptions.Item>
+          <Descriptions.Item label="DATA ABERTURA">
+            <strong>{dadosGerais.dataAbertura}</strong>
+          </Descriptions.Item>
+          <Descriptions.Item label="TIPO PROCESSO" span={2}>
+            <strong>{findTipo()?.label || '-'}</strong>
+          </Descriptions.Item>
+          <Descriptions.Item label="ASSUNTO PROCESSO">
+            <strong>{findAssunto()?.label || '-'}</strong>
+          </Descriptions.Item>
+        </Descriptions>
+
         <Divider dashed />
-        <h3>Manifestante</h3>
-        <Row>
-          <Col span={12}>
-            TIPO DE DOCUMENTO:{' '}
-            <strong>{dadosGerais.tipoVirtual ? 'VIRTUAL' : 'FÍSICO'}</strong>
-          </Col>
-          <Col span={12}>
-            DATA ABERTURA: <strong>{dadosGerais.dataAbertura}</strong>
-          </Col>
-        </Row>
+
+        <Descriptions
+          size="small"
+          layout="vertical"
+          title="Manifestante"
+          bordered
+        ></Descriptions>
+
         <Divider dashed />
-        <h3>Documentos</h3>
-        <Row>
-          <Col span={12}>
-            TIPO DE DOCUMENTO:{' '}
-            <strong>{dadosGerais.tipoVirtual ? 'VIRTUAL' : 'FÍSICO'}</strong>
-          </Col>
-          <Col span={12}>
-            DATA ABERTURA: <strong>{dadosGerais.dataAbertura}</strong>
-          </Col>
-        </Row>
+
+        <Descriptions
+          size="small"
+          layout="vertical"
+          title="Documentos"
+          bordered
+        ></Descriptions>
       </Drawer>
     </>
   );

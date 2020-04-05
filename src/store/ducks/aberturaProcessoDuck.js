@@ -13,6 +13,7 @@ const initialState = {
       tipoVirtual: true,
       dataAbertura: moment().format('DD/MM/YY - h:mm'),
       tipoAssunto: [],
+      corpoProcesso: null,
     },
   },
   tiposAssuntos: [],

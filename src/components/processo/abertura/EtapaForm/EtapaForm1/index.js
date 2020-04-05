@@ -13,26 +13,49 @@ import {
   CopyOutlined,
   SolutionOutlined,
 } from '@ant-design/icons';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { AberturaProcessoActions } from '~/store/ducks/aberturaProcessoDuck';
+import TextArea from 'antd/lib/input/TextArea';
 
 const { Title, Text } = Typography;
 
 export default () => {
   const [form] = Form.useForm();
+  const [defaultOpenedCollapse, setDefaultOpenedCollapse] = useState([
+    '1',
+    '2',
+    '3',
+    '4',
+  ]);
   const {
     form: { dadosGerais: formDadosGerais },
     tiposAssuntos,
-    loading,
   } = useSelector((state) => state.aberturaProcesso);
 
   const dispatch = useDispatch();
 
+  const openLastCollapses = useCallback((open = false, time = 1000) => {
+    const query = open
+      ? '.ant-collapse-item:not(.ant-collapse-item-active) .ant-collapse-header'
+      : '.ant-collapse-item.ant-collapse-item-active .ant-collapse-header';
+
+    setTimeout(() => {
+      document.querySelectorAll(query).forEach((ele, idx) => {
+        if (!open && idx !== 0) {
+          ele.click();
+        } else if (open) {
+          ele.click();
+        }
+      });
+    }, time);
+  }, []);
+
   useEffect(() => {
     dispatch(AberturaProcessoActions.fetchTipos());
-  }, [dispatch]);
+    openLastCollapses(false, 1000);
+  }, [dispatch, openLastCollapses]);
 
   const onFinish = (values) => {
     console.log('Success:', values);
@@ -40,6 +63,7 @@ export default () => {
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
+    openLastCollapses(true, 50);
   };
 
   const onValuesChange = (values) => {
@@ -72,7 +96,7 @@ export default () => {
         onValuesChange={onValuesChange}
       >
         <Collapse
-          defaultActiveKey={['1']}
+          defaultActiveKey={defaultOpenedCollapse}
           expandIconPosition="right"
           bordered={false}
           className="collapse-borderless-dashed"
@@ -128,7 +152,15 @@ export default () => {
             }
             key="2"
           >
-            2
+            <Form.Item
+              name="corpoProcesso"
+              label={<strong>CORPO PROCESSO</strong>}
+              rules={[
+                { required: true, message: 'CORPO PROCESSO é obrigatório!' },
+              ]}
+            >
+              <TextArea rows={4} />
+            </Form.Item>
           </Collapse.Panel>
           <Collapse.Panel
             header={
@@ -151,7 +183,8 @@ export default () => {
             4
           </Collapse.Panel>
         </Collapse>
-        <Button type="dashed" size="large" disabled={false} block>
+        <br />
+        <Button size="large" disabled={false} block htmlType="submit">
           Próximo <SolutionOutlined />
         </Button>
       </Form>
