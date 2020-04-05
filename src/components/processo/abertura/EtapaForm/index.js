@@ -13,6 +13,7 @@ export default ({ currentEtapa }) => {
         <Tabs
           type="card"
           activeKey={`${currentEtapa + 1}`}
+          defaultActiveKey={['1', '2']}
           tabBarStyle={{ display: 'none' }}
         >
           <Tabs.TabPane tab="1" key="1">
