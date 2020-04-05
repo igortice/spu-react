@@ -1,7 +1,9 @@
-import { Button, Collapse, Divider } from 'antd';
+import { Button, Collapse, Divider, Typography } from 'antd';
 
 import React from 'react';
 import { SolutionOutlined } from '@ant-design/icons';
+
+const { Title, Text } = Typography;
 
 export default () => {
   return (
@@ -12,17 +14,42 @@ export default () => {
         bordered={false}
         className="collapse-borderless-dashed"
       >
-        <Collapse.Panel header={<strong>Dados Gerais</strong>} key="1">
+        <Collapse.Panel
+          header={
+            <Title level={4}>
+              <Text type="secondary">Descrição dos Tipos</Text>
+            </Title>
+          }
+          key="1"
+        >
           1
         </Collapse.Panel>
-        <Collapse.Panel header={<strong>Dados Gerais</strong>} key="2">
+        <Collapse.Panel
+          header={
+            <Title level={4}>
+              <Text type="secondary">Descrição Principal</Text>
+            </Title>
+          }
+          key="2"
+        >
           2
         </Collapse.Panel>
-        <Collapse.Panel header={<strong>Descrição do Processo</strong>} key="3">
+        <Collapse.Panel
+          header={
+            <Title level={4}>
+              <Text type="secondary">Cópias e Circular</Text>
+            </Title>
+          }
+          key="3"
+        >
           3
         </Collapse.Panel>
         <Collapse.Panel
-          header={<strong>Processo ou Documento Circular</strong>}
+          header={
+            <Title level={4}>
+              <Text type="secondary">Outras Informações</Text>
+            </Title>
+          }
           key="4"
         >
           4
