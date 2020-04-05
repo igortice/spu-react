@@ -6,13 +6,13 @@ import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import configureStore from './store/configureStore';
-import pt_BR from 'antd/es/locale/pt_BR';
+import ptBr from 'antd/es/locale/pt_BR';
 
 const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>
-    <ConfigProvider locale={pt_BR}>
+    <ConfigProvider locale={ptBr}>
       <App />
     </ConfigProvider>
   </Provider>,
