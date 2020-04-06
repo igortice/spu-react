@@ -1,10 +1,14 @@
+import 'moment/locale/pt-br'; // without this line it didn't work
+
 import {
   Button,
   Cascader,
   Collapse,
+  DatePicker,
   Form,
   Input,
   Radio,
+  Select,
   Typography,
 } from 'antd';
 import {
@@ -18,9 +22,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { AberturaProcessoActions } from '~/store/ducks/aberturaProcessoDuck';
 import TextArea from 'antd/lib/input/TextArea';
+import moment from 'moment';
 
 const { Title, Text } = Typography;
-
+const { Option } = Select;
 export default () => {
   const [form] = Form.useForm();
   const [defaultOpenedCollapse, setDefaultOpenedCollapse] = useState([
@@ -32,6 +37,7 @@ export default () => {
   const {
     form: { dadosGerais: formDadosGerais },
     tiposAssuntos,
+    prioridadesProcesso,
   } = useSelector((state) => state.aberturaProcesso);
 
   const dispatch = useDispatch();
@@ -54,6 +60,7 @@ export default () => {
 
   useEffect(() => {
     dispatch(AberturaProcessoActions.fetchTipos());
+    dispatch(AberturaProcessoActions.fetchPrioridades());
     openLastCollapses(false, 1000);
   }, [dispatch, openLastCollapses]);
 
@@ -94,6 +101,7 @@ export default () => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         onValuesChange={onValuesChange}
+        scrollToFirstError
       >
         <Collapse
           defaultActiveKey={defaultOpenedCollapse}
@@ -136,6 +144,7 @@ export default () => {
               rules={[
                 { required: true, message: 'TIPO/ASSUNTO é obrigatório!' },
               ]}
+              hasFeedback
             >
               <Cascader
                 options={tiposAssuntos}
@@ -153,11 +162,39 @@ export default () => {
             key="2"
           >
             <Form.Item
+              name={['prioridade', 'id']}
+              label={<strong>PRIORIDADE</strong>}
+              rules={[{ required: true, message: 'PRIORIDADE é obrigatório!' }]}
+              hasFeedback
+            >
+              <Select placeholder="Selecione a Prioridade" allowClear>
+                {prioridadesProcesso.map((prioridade) => (
+                  <Option key={prioridade.id} value={prioridade.id}>
+                    {prioridade.label}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+            <Form.Item name={'dataPrazo'} label={<strong>DATA PRAZO</strong>}>
+              <DatePicker
+                style={{ width: '100%' }}
+                allowClear
+                size="large"
+                disabledDate={(current) =>
+                  moment().subtract(1, 'day') > current
+                }
+                locale="pt-br"
+                format={'DD/MM/YYYY'}
+              />
+            </Form.Item>
+
+            <Form.Item
               name="corpoProcesso"
               label={<strong>CORPO PROCESSO</strong>}
               rules={[
                 { required: true, message: 'CORPO PROCESSO é obrigatório!' },
               ]}
+              hasFeedback
             >
               <TextArea rows={4} />
             </Form.Item>

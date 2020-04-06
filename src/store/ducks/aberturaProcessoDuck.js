@@ -3,6 +3,7 @@ import moment from 'moment';
 export const Types = {
   LOADING: 'LOADING',
   FETCH_TIPOS: 'FETCH_TIPOS',
+  FETCH_PRIORIDADES: 'FETCH_PRIORIDADES',
   FETCH_ASSUNTOS: 'FETCH_ASSUNTOS',
   CHANGE_FORM_DADOS_GERAIS: 'CHANGE_FORM_DADOS_GERAIS',
 };
@@ -14,8 +15,12 @@ const initialState = {
       dataAbertura: moment().format('DD/MM/YY - h:mm'),
       tipoAssunto: [],
       corpoProcesso: null,
+      prioridade: null,
+      dataPrazo: null,
     },
   },
+
+  prioridadesProcesso: [],
   tiposAssuntos: [],
   loading: false,
 };
@@ -40,6 +45,9 @@ export default (state = initialState, { type, payload }) => {
       }
 
       return state;
+
+    case Types.FETCH_PRIORIDADES:
+      return { ...state, prioridadesProcesso: payload };
 
     case Types.LOADING:
       return { ...state, loading: payload };
@@ -69,6 +77,14 @@ export const AberturaProcessoActions = {
     );
 
     dispatch({ type: Types.FETCH_ASSUNTOS, payload: { tipo_id, assuntos } });
+  },
+
+  fetchPrioridades: (_) => async (dispatch) => {
+    const prioridades = await ProcessoService.prioridades().then(
+      (res) => res.data
+    );
+
+    dispatch({ type: Types.FETCH_PRIORIDADES, payload: prioridades });
   },
 
   changeFormDadosGerais: (values) => (dispatch) =>

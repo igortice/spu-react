@@ -18,4 +18,13 @@ export default class ProcessoService {
 
     return await API_BASE(options);
   };
+
+  static prioridades = async (_) => {
+    const options = {
+      method: 'GET',
+      url: `processo/prioridades`,
+    };
+
+    return await API_BASE(options);
+  };
 }
