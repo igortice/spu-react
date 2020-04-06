@@ -1,4 +1,5 @@
 import './assets/less/styles.less';
+import 'react-quill/dist/quill.snow.css';
 
 import App from './configs/App';
 import { ConfigProvider } from 'antd';

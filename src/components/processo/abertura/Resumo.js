@@ -1,6 +1,7 @@
-import { Descriptions, Divider, Drawer, Row } from 'antd';
+import { Descriptions, Divider, Drawer } from 'antd';
 
 import React from 'react';
+import ReactHtmlParser from 'react-html-parser';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 
@@ -27,6 +28,10 @@ export default ({ showResumo, handleShowResumo }) => {
     return prioridadesProcesso.find(
       (prioridade) => prioridade.id === dadosGerais.prioridade?.id
     );
+  };
+
+  const getCorpoProcesso = () => {
+    return ReactHtmlParser(dadosGerais.corpoProcesso);
   };
 
   const getDataPrazo = () => {
@@ -66,6 +71,9 @@ export default ({ showResumo, handleShowResumo }) => {
           </Descriptions.Item>
           <Descriptions.Item label="DATA PRAZO">
             <strong>{getDataPrazo() || '-'}</strong>
+          </Descriptions.Item>
+          <Descriptions.Item label="CORPO DO PROCESSO" span={3}>
+            <strong>{getCorpoProcesso() || '-'}</strong>
           </Descriptions.Item>
         </Descriptions>
 

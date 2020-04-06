@@ -21,14 +21,15 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { AberturaProcessoActions } from '~/store/ducks/aberturaProcessoDuck';
-import TextArea from 'antd/lib/input/TextArea';
+import ReactQuill from 'react-quill';
+import { TOOLBAR_1_OPTIONS } from '~/constants/ReactQuiilModules';
 import moment from 'moment';
 
 const { Title, Text } = Typography;
 const { Option } = Select;
 export default () => {
   const [form] = Form.useForm();
-  const [defaultOpenedCollapse, setDefaultOpenedCollapse] = useState([
+  const [defaultOpenedCollapse /*, setDefaultOpenedCollapse*/] = useState([
     '1',
     '2',
     '3',
@@ -74,6 +75,11 @@ export default () => {
   };
 
   const onValuesChange = (values) => {
+    if (values?.corpoProcesso === '<p><br></p>') {
+      values.corpoProcesso = null;
+      console.log(form.setFieldsValue(values));
+    }
+
     dispatch(AberturaProcessoActions.changeFormDadosGerais(values));
   };
 
@@ -196,7 +202,12 @@ export default () => {
               ]}
               hasFeedback
             >
-              <TextArea rows={4} />
+              <ReactQuill
+                theme="snow"
+                preserveWhitespace
+                modules={TOOLBAR_1_OPTIONS}
+                placeholder="Digite aqui o corpo do processo"
+              />
             </Form.Item>
           </Collapse.Panel>
           <Collapse.Panel
