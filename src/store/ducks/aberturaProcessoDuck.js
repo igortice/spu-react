@@ -17,6 +17,7 @@ const initialState = {
       corpoProcesso: null,
       prioridade: null,
       dataPrazo: null,
+      destinoProcesso: null,
     },
   },
 

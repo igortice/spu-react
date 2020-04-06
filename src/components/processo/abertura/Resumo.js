@@ -31,7 +31,12 @@ export default ({ showResumo, handleShowResumo }) => {
   };
 
   const getCorpoProcesso = () => {
-    return ReactHtmlParser(dadosGerais.corpoProcesso);
+    const corpo = ReactHtmlParser(dadosGerais.corpoProcesso);
+    if (corpo?.length !== 0) {
+      return ReactHtmlParser(dadosGerais.corpoProcesso);
+    } else {
+      return null;
+    }
   };
 
   const getDataPrazo = () => {
@@ -73,7 +78,7 @@ export default ({ showResumo, handleShowResumo }) => {
             <strong>{getDataPrazo() || '-'}</strong>
           </Descriptions.Item>
           <Descriptions.Item label="CORPO DO PROCESSO" span={3}>
-            <strong>{getCorpoProcesso() || '-'}</strong>
+            <pre>{getCorpoProcesso() || '-'}</pre>
           </Descriptions.Item>
         </Descriptions>
 

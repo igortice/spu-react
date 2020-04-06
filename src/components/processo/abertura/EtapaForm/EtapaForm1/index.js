@@ -9,6 +9,7 @@ import {
   Input,
   Radio,
   Select,
+  TreeSelect,
   Typography,
 } from 'antd';
 import {
@@ -27,6 +28,27 @@ import moment from 'moment';
 
 const { Title, Text } = Typography;
 const { Option } = Select;
+const treeData = [
+  {
+    title: 'Node1',
+    value: '0-0',
+    children: [
+      {
+        title: 'Child Node1',
+        value: '0-0-1',
+      },
+      {
+        title: 'Child Node2',
+        value: '0-0-2',
+      },
+    ],
+  },
+  {
+    title: 'Node2',
+    value: '0-1',
+  },
+];
+
 export default () => {
   const [form] = Form.useForm();
   const [defaultOpenedCollapse /*, setDefaultOpenedCollapse*/] = useState([
@@ -77,7 +99,7 @@ export default () => {
   const onValuesChange = (values) => {
     if (values?.corpoProcesso === '<p><br></p>') {
       values.corpoProcesso = null;
-      console.log(form.setFieldsValue(values));
+      form.setFieldsValue(values);
     }
 
     dispatch(AberturaProcessoActions.changeFormDadosGerais(values));
@@ -159,6 +181,7 @@ export default () => {
               />
             </Form.Item>
           </Collapse.Panel>
+
           <Collapse.Panel
             header={
               <Title level={4}>
@@ -167,6 +190,25 @@ export default () => {
             }
             key="2"
           >
+            <Form.Item
+              name={['destinoProcesso', 'id']}
+              label={<strong>DESTINO PROCESSO</strong>}
+              rules={[
+                { required: true, message: 'DESTINO PROCESSO é obrigatório!' },
+              ]}
+              hasFeedback
+            >
+              <TreeSelect
+                style={{ width: '100%' }}
+                value={null}
+                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                treeData={treeData}
+                placeholder="Escolha o Destino"
+                onChange={null}
+                allowClear
+              />
+            </Form.Item>
+
             <Form.Item
               name={['prioridade', 'id']}
               label={<strong>PRIORIDADE</strong>}
@@ -181,6 +223,7 @@ export default () => {
                 ))}
               </Select>
             </Form.Item>
+
             <Form.Item name={'dataPrazo'} label={<strong>DATA PRAZO</strong>}>
               <DatePicker
                 style={{ width: '100%' }}
@@ -210,6 +253,7 @@ export default () => {
               />
             </Form.Item>
           </Collapse.Panel>
+
           <Collapse.Panel
             header={
               <Title level={4}>
@@ -220,6 +264,7 @@ export default () => {
           >
             3
           </Collapse.Panel>
+
           <Collapse.Panel
             header={
               <Title level={4}>
