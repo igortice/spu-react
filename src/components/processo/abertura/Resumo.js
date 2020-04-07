@@ -30,6 +30,10 @@ export default ({ showResumo, handleShowResumo }) => {
     );
   };
 
+  const getDestino = () => {
+    return dadosGerais.destinoProcesso?.id;
+  };
+
   const getCorpoProcesso = () => {
     const corpo = ReactHtmlParser(dadosGerais.corpoProcesso);
     if (corpo?.length !== 0) {
@@ -70,6 +74,9 @@ export default ({ showResumo, handleShowResumo }) => {
           </Descriptions.Item>
           <Descriptions.Item label="ASSUNTO PROCESSO">
             <strong>{getAssunto()?.label || '-'}</strong>
+          </Descriptions.Item>
+          <Descriptions.Item label="DESTINO" span={3}>
+            <pre>{getDestino() || '-'}</pre>
           </Descriptions.Item>
           <Descriptions.Item label="PRIORIDADE" span={2}>
             <strong>{getPrioridade()?.label || '-'}</strong>

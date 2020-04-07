@@ -22,47 +22,23 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { AberturaProcessoActions } from '~/store/ducks/aberturaProcessoDuck';
+import { MocksAberturaProcesso } from '~/mocks/MocksAberturaProcesso';
 import ReactQuill from 'react-quill';
 import { TOOLBAR_1_OPTIONS } from '~/constants/ReactQuiilModules';
+import TextArea from 'antd/lib/input/TextArea';
 import moment from 'moment';
 
 const { Title, Text } = Typography;
 const { Option } = Select;
-const treeData = [
-  {
-    title: 'Node1',
-    value: '0-0',
-    children: [
-      {
-        title: 'Child Node1',
-        value: '0-0-1',
-      },
-      {
-        title: 'Child Node2',
-        value: '0-0-2',
-      },
-    ],
-  },
-  {
-    title: 'Node2',
-    value: '0-1',
-  },
-];
 
 export default () => {
   const [form] = Form.useForm();
-  const [defaultOpenedCollapse /*, setDefaultOpenedCollapse*/] = useState([
-    '1',
-    '2',
-    '3',
-    '4',
-  ]);
+  const [defaultOpenedCollapse] = useState(['1', '2', '3', '4']);
   const {
     form: { dadosGerais: formDadosGerais },
     tiposAssuntos,
     prioridadesProcesso,
   } = useSelector((state) => state.aberturaProcesso);
-
   const dispatch = useDispatch();
 
   const openLastCollapses = useCallback((open = false, time = 1000) => {
@@ -87,15 +63,6 @@ export default () => {
     openLastCollapses(false, 1000);
   }, [dispatch, openLastCollapses]);
 
-  const onFinish = (values) => {
-    console.log('Success:', values);
-  };
-
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-    openLastCollapses(true, 50);
-  };
-
   const onValuesChange = (values) => {
     if (values?.corpoProcesso === '<p><br></p>') {
       values.corpoProcesso = null;
@@ -115,6 +82,15 @@ export default () => {
         dispatch(AberturaProcessoActions.loading(false));
       }
     );
+  };
+
+  const onFinish = (values) => {
+    console.log('Success:', values);
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+    openLastCollapses(true, 50);
   };
 
   return (
@@ -137,14 +113,16 @@ export default () => {
           bordered={false}
           className="collapse-borderless-dashed"
         >
+          {/* DESCRIÇÃO TIPOS */}
           <Collapse.Panel
             header={
               <Title level={4}>
-                <Text type="secondary">Descrição dos Tipos</Text>
+                <Text type="secondary">Descrição Tipos</Text>
               </Title>
             }
             key="1"
           >
+            {/* TIPO DE DOCUMENTO */}
             <Form.Item
               name="tipoVirtual"
               label={<strong>TIPO DE DOCUMENTO</strong>}
@@ -159,6 +137,7 @@ export default () => {
               </Radio.Group>
             </Form.Item>
 
+            {/* DATA ABERTURA */}
             <Form.Item
               name="dataAbertura"
               label={<strong>DATA ABERTURA</strong>}
@@ -166,6 +145,7 @@ export default () => {
               <Input addonAfter={<CalendarOutlined />} disabled />
             </Form.Item>
 
+            {/* TIPO E ASSUNTO */}
             <Form.Item
               name="tipoAssunto"
               label={<strong>TIPO/ASSUNTO</strong>}
@@ -182,6 +162,7 @@ export default () => {
             </Form.Item>
           </Collapse.Panel>
 
+          {/* DESCRIÇÃO PRINCIPAL */}
           <Collapse.Panel
             header={
               <Title level={4}>
@@ -190,6 +171,7 @@ export default () => {
             }
             key="2"
           >
+            {/* DESTINO PROCESSO */}
             <Form.Item
               name={['destinoProcesso', 'id']}
               label={<strong>DESTINO PROCESSO</strong>}
@@ -202,13 +184,31 @@ export default () => {
                 style={{ width: '100%' }}
                 value={null}
                 dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                treeData={treeData}
+                treeData={MocksAberturaProcesso.destinos}
                 placeholder="Escolha o Destino"
                 onChange={null}
                 allowClear
               />
             </Form.Item>
 
+            {/* COM CÓPIA */}
+            <Form.Item
+              name={['destinoCopias', 'ids']}
+              label={<strong>DESTINO CÓPIA</strong>}
+            >
+              <TreeSelect
+                style={{ width: '100%' }}
+                value={null}
+                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                treeData={MocksAberturaProcesso.destinos}
+                placeholder="Escolha o(s) Destino(s)"
+                onChange={null}
+                allowClear
+                multiple
+              />
+            </Form.Item>
+
+            {/* PRIORIDADE */}
             <Form.Item
               name={['prioridade', 'id']}
               label={<strong>PRIORIDADE</strong>}
@@ -224,6 +224,7 @@ export default () => {
               </Select>
             </Form.Item>
 
+            {/* DATA PRAZO */}
             <Form.Item name={'dataPrazo'} label={<strong>DATA PRAZO</strong>}>
               <DatePicker
                 style={{ width: '100%' }}
@@ -237,6 +238,7 @@ export default () => {
               />
             </Form.Item>
 
+            {/* CORPO PROCESSO */}
             <Form.Item
               name="corpoProcesso"
               label={<strong>CORPO PROCESSO</strong>}
@@ -254,17 +256,34 @@ export default () => {
             </Form.Item>
           </Collapse.Panel>
 
+          {/* PROCESSO/DOCUMENTOS CIRCULAR */}
           <Collapse.Panel
             header={
               <Title level={4}>
-                <Text type="secondary">Cópias e Circular</Text>
+                <Text type="secondary">Processo/Documentos Circulares</Text>
               </Title>
             }
             key="3"
           >
-            3
+            {/* CIRCULARES */}
+            <Form.Item
+              name={['destinoCirculares', 'ids']}
+              label={<strong>DESTINO CIRCULARES</strong>}
+            >
+              <TreeSelect
+                style={{ width: '100%' }}
+                value={null}
+                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                treeData={MocksAberturaProcesso.destinos}
+                placeholder="Escolha o(s) Destino(s)"
+                onChange={null}
+                allowClear
+                multiple
+              />
+            </Form.Item>
           </Collapse.Panel>
 
+          {/* OUTRAS INFORMAÇÕES */}
           <Collapse.Panel
             header={
               <Title level={4}>
@@ -273,10 +292,30 @@ export default () => {
             }
             key="4"
           >
-            4
+            {/* NUMERO ORIGEM */}
+            <Form.Item
+              name="numeroOrigem"
+              label={<strong>NÚMERO DE ORIGEM</strong>}
+            >
+              <Input placeholder="Número de origem se existir" />
+            </Form.Item>
+
+            {/* OBSERVACAO CAPA */}
+            <Form.Item
+              name="observacaoCapa"
+              label={<strong>OBSERVACAO CAPA</strong>}
+            >
+              <TextArea
+                placeholder="Informações que aparecerão na capa do processo"
+                allowClear
+                autoSize={{ minRows: 2, maxRows: 2 }}
+              />
+            </Form.Item>
           </Collapse.Panel>
         </Collapse>
+
         <br />
+
         <Button size="large" disabled={false} block htmlType="submit">
           Próximo <SolutionOutlined />
         </Button>
