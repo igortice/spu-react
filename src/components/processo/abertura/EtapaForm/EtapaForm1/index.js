@@ -16,6 +16,7 @@ import {
   CalendarOutlined,
   CloudUploadOutlined,
   CopyOutlined,
+  InfoCircleOutlined,
   SolutionOutlined,
 } from '@ant-design/icons';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -179,6 +180,14 @@ export default () => {
                 { required: true, message: 'DESTINO PROCESSO é obrigatório!' },
               ]}
               hasFeedback
+              extra={
+                <Text type="warning">
+                  <i>
+                    <InfoCircleOutlined /> Caso não seja selecionado um destino,
+                    o processo irá para sua caixa de análise.
+                  </i>
+                </Text>
+              }
             >
               <TreeSelect
                 style={{ width: '100%' }}
@@ -193,8 +202,8 @@ export default () => {
 
             {/* COM CÓPIA */}
             <Form.Item
-              name={['destinoCopias', 'ids']}
-              label={<strong>DESTINO CÓPIA</strong>}
+              name={['destinosCopias', 'ids']}
+              label={<strong>DESTINO(S) CÓPIA</strong>}
             >
               <TreeSelect
                 style={{ width: '100%' }}
@@ -296,6 +305,15 @@ export default () => {
             <Form.Item
               name="numeroOrigem"
               label={<strong>NÚMERO DE ORIGEM</strong>}
+              extra={
+                <Text type="warning">
+                  <i>
+                    <InfoCircleOutlined /> Referência a outro processo que
+                    originou este, seja do próprio SPU ou de uma entidade
+                    externa da PMF.
+                  </i>
+                </Text>
+              }
             >
               <Input placeholder="Número de origem se existir" />
             </Form.Item>

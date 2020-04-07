@@ -15,7 +15,7 @@ const initialState = {
       dataAbertura: moment().format('DD/MM/YY - h:mm'),
       tipoAssunto: [],
       destinoProcesso: null,
-      destinoCopias: null,
+      destinosCopias: null,
       prioridade: null,
       dataPrazo: null,
       corpoProcesso: null,

@@ -34,6 +34,10 @@ export default ({ showResumo, handleShowResumo }) => {
     return dadosGerais.destinoProcesso?.id;
   };
 
+  const getDestinosCopias = () => {
+    return dadosGerais.destinosCopias?.ids.join(', ');
+  };
+
   const getCorpoProcesso = () => {
     const corpo = ReactHtmlParser(dadosGerais.corpoProcesso);
     if (corpo?.length !== 0) {
@@ -44,7 +48,11 @@ export default ({ showResumo, handleShowResumo }) => {
   };
 
   const getDataPrazo = () => {
-    return moment(dadosGerais.dataPrazo).format('DD/MM/YYYY');
+    return (
+      (dadosGerais.dataPrazo &&
+        moment(dadosGerais.dataPrazo).format('DD/MM/YYYY')) ||
+      null
+    );
   };
 
   return (
@@ -58,33 +66,46 @@ export default ({ showResumo, handleShowResumo }) => {
         onClose={() => handleShowResumo(false)}
       >
         <Descriptions
-          size="small"
-          layout="vertical"
+          layout="horizontal"
           title="Dados Gerais"
           bordered
+          column={4}
+          size="small"
         >
-          <Descriptions.Item label="TIPO DE DOCUMENTO" span={2}>
+          <Descriptions.Item label="TIPO DE DOCUMENTO" span={4}>
             <strong>{dadosGerais.tipoVirtual ? 'VIRTUAL' : 'FÍSICO'}</strong>
           </Descriptions.Item>
-          <Descriptions.Item label="DATA ABERTURA">
+          <Descriptions.Item label="DATA ABERTURA" span={4}>
             <strong>{dadosGerais.dataAbertura}</strong>
           </Descriptions.Item>
-          <Descriptions.Item label="TIPO PROCESSO" span={2}>
+          <Descriptions.Item label="TIPO PROCESSO" span={4}>
             <strong>{getTipo()?.label || '-'}</strong>
           </Descriptions.Item>
-          <Descriptions.Item label="ASSUNTO PROCESSO">
+          <Descriptions.Item label="ASSUNTO PROCESSO" span={4}>
             <strong>{getAssunto()?.label || '-'}</strong>
           </Descriptions.Item>
-          <Descriptions.Item label="DESTINO" span={3}>
+          <Descriptions.Item label="DESTINO" span={4}>
             <pre>{getDestino() || '-'}</pre>
           </Descriptions.Item>
-          <Descriptions.Item label="PRIORIDADE" span={2}>
+          <Descriptions.Item label="DESTINO(S) CÓPIAS" span={4}>
+            <pre>{getDestinosCopias() || '-'}</pre>
+          </Descriptions.Item>
+          <Descriptions.Item label="PRIORIDADE" span={4}>
             <strong>{getPrioridade()?.label || '-'}</strong>
           </Descriptions.Item>
-          <Descriptions.Item label="DATA PRAZO">
+          <Descriptions.Item label="DATA PRAZO" span={4}>
             <strong>{getDataPrazo() || '-'}</strong>
           </Descriptions.Item>
-          <Descriptions.Item label="CORPO DO PROCESSO" span={3}>
+          <Descriptions.Item label="CORPO DO PROCESSO" span={4}>
+            <pre>{getCorpoProcesso() || '-'}</pre>
+          </Descriptions.Item>
+          <Descriptions.Item label="NÚMERO DE ORIGEM" span={4}>
+            <pre>{getCorpoProcesso() || '-'}</pre>
+          </Descriptions.Item>
+          <Descriptions.Item label="DESTINO CIRCULARES" span={4}>
+            <pre>{getCorpoProcesso() || '-'}</pre>
+          </Descriptions.Item>
+          <Descriptions.Item label="OBSERVAÇÃO CAPA" span={4}>
             <pre>{getCorpoProcesso() || '-'}</pre>
           </Descriptions.Item>
         </Descriptions>
