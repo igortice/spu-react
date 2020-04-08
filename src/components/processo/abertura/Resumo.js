@@ -55,13 +55,25 @@ export default ({ showResumo, handleShowResumo }) => {
     );
   };
 
+  const getDestinoCirculares = () => {
+    return dadosGerais.destinoCirculares?.ids.join(', ');
+  };
+
+  const getNumeroOrigem = () => {
+    return dadosGerais.numeroOrigem;
+  };
+
+  const getObservacaoCapa = () => {
+    return dadosGerais.observacaoCapa;
+  };
+
   return (
     <>
       <Drawer
         title={<h2>Resumo do Processo</h2>}
-        width={540}
+        width={720}
         placement="right"
-        closable={false}
+        closable
         visible={showResumo}
         onClose={() => handleShowResumo(false)}
       >
@@ -85,10 +97,10 @@ export default ({ showResumo, handleShowResumo }) => {
             <strong>{getAssunto()?.label || '-'}</strong>
           </Descriptions.Item>
           <Descriptions.Item label="DESTINO" span={4}>
-            <pre>{getDestino() || '-'}</pre>
+            <strong>{getDestino() || '-'}</strong>
           </Descriptions.Item>
           <Descriptions.Item label="DESTINO(S) CÓPIAS" span={4}>
-            <pre>{getDestinosCopias() || '-'}</pre>
+            <strong>{getDestinosCopias() || '-'}</strong>
           </Descriptions.Item>
           <Descriptions.Item label="PRIORIDADE" span={4}>
             <strong>{getPrioridade()?.label || '-'}</strong>
@@ -97,16 +109,16 @@ export default ({ showResumo, handleShowResumo }) => {
             <strong>{getDataPrazo() || '-'}</strong>
           </Descriptions.Item>
           <Descriptions.Item label="CORPO DO PROCESSO" span={4}>
-            <pre>{getCorpoProcesso() || '-'}</pre>
-          </Descriptions.Item>
-          <Descriptions.Item label="NÚMERO DE ORIGEM" span={4}>
-            <pre>{getCorpoProcesso() || '-'}</pre>
+            {getCorpoProcesso() || <strong>-</strong>}
           </Descriptions.Item>
           <Descriptions.Item label="DESTINO CIRCULARES" span={4}>
-            <pre>{getCorpoProcesso() || '-'}</pre>
+            <strong>{getDestinoCirculares() || '-'}</strong>
+          </Descriptions.Item>
+          <Descriptions.Item label="NÚMERO DE ORIGEM" span={4}>
+            <strong>{getNumeroOrigem() || '-'}</strong>
           </Descriptions.Item>
           <Descriptions.Item label="OBSERVAÇÃO CAPA" span={4}>
-            <pre>{getCorpoProcesso() || '-'}</pre>
+            <strong>{getObservacaoCapa() || '-'}</strong>
           </Descriptions.Item>
         </Descriptions>
 

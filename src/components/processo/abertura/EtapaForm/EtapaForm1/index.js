@@ -114,11 +114,11 @@ export default () => {
           bordered={false}
           className="collapse-borderless-dashed"
         >
-          {/* DESCRIÇÃO TIPOS */}
+          {/* TIPOS */}
           <Collapse.Panel
             header={
               <Title level={4}>
-                <Text type="secondary">Descrição Tipos</Text>
+                <Text type="secondary">Tipos</Text>
               </Title>
             }
             key="1"
@@ -138,14 +138,6 @@ export default () => {
               </Radio.Group>
             </Form.Item>
 
-            {/* DATA ABERTURA */}
-            <Form.Item
-              name="dataAbertura"
-              label={<strong>DATA ABERTURA</strong>}
-            >
-              <Input addonAfter={<CalendarOutlined />} disabled />
-            </Form.Item>
-
             {/* TIPO E ASSUNTO */}
             <Form.Item
               name="tipoAssunto"
@@ -163,15 +155,23 @@ export default () => {
             </Form.Item>
           </Collapse.Panel>
 
-          {/* DESCRIÇÃO PRINCIPAL */}
+          {/* DESCRIÇÃO GERAL */}
           <Collapse.Panel
             header={
               <Title level={4}>
-                <Text type="secondary">Descrição Principal</Text>
+                <Text type="secondary">Descrição Geral</Text>
               </Title>
             }
             key="2"
           >
+            {/* DATA ABERTURA */}
+            <Form.Item
+              name="dataAbertura"
+              label={<strong>DATA ABERTURA</strong>}
+            >
+              <Input addonAfter={<CalendarOutlined />} disabled />
+            </Form.Item>
+
             {/* DESTINO PROCESSO */}
             <Form.Item
               name={['destinoProcesso', 'id']}
@@ -258,6 +258,7 @@ export default () => {
             >
               <ReactQuill
                 theme="snow"
+                style={{ backgroundColor: 'white' }}
                 preserveWhitespace
                 modules={TOOLBAR_1_OPTIONS}
                 placeholder="Digite aqui o corpo do processo"
