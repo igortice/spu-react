@@ -10,7 +10,7 @@ export default () => {
   /**
    * CONFIG ETAPAS
    */
-  const [currentEtapa, setCurrentEtapa] = useState(0);
+  const [currentEtapa, setCurrentEtapa] = useState(1);
   const handleCurrentEtapa = (etapa) => {
     setCurrentEtapa(etapa);
   };
@@ -19,7 +19,7 @@ export default () => {
    * CONFIG SHOW ETAPAS
    */
   // eslint-disable-next-line
-  const [showEtapas, setShowEtapas] = useState([true, false, false, false]);
+  const [showEtapas, setShowEtapas] = useState([true, true, false, false]);
   // eslint-disable-next-line
   const handleShowEtapas = (index, bool) => {
     setShowEtapas((etapas) => {

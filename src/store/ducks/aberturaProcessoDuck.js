@@ -23,6 +23,7 @@ const initialState = {
       numeroOrigem: null,
       observacaoCapa: null,
     },
+    manifestante: {},
   },
 
   prioridadesProcesso: [],
