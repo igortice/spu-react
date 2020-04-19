@@ -19,7 +19,7 @@ import {
   InfoCircleOutlined,
   SolutionOutlined,
 } from '@ant-design/icons';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { AberturaProcessoActions } from '~/store/ducks/aberturaProcessoDuck';
@@ -28,6 +28,7 @@ import ReactQuill from 'react-quill';
 import { TOOLBAR_1_OPTIONS } from '~/constants/ReactQuiilModules';
 import TextArea from 'antd/lib/input/TextArea';
 import moment from 'moment';
+import useOpenedLastCollapses from '~/hooks/useOpenedLastCollapses';
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -41,28 +42,13 @@ export default () => {
     prioridadesProcesso,
   } = useSelector((state) => state.aberturaProcesso);
   const dispatch = useDispatch();
-
-  const openLastCollapses = useCallback((open = false, time = 1000) => {
-    const query = open
-      ? '.ant-collapse-item:not(.ant-collapse-item-active) .ant-collapse-header'
-      : '.ant-collapse-item.ant-collapse-item-active .ant-collapse-header';
-
-    setTimeout(() => {
-      document.querySelectorAll(query).forEach((ele, idx) => {
-        if (!open && idx !== 0) {
-          ele.click();
-        } else if (open) {
-          ele.click();
-        }
-      });
-    }, time);
-  }, []);
+  const openedLastCollapses = useOpenedLastCollapses();
 
   useEffect(() => {
     dispatch(AberturaProcessoActions.fetchTipos());
     dispatch(AberturaProcessoActions.fetchPrioridades());
-    openLastCollapses(false, 1000);
-  }, [dispatch, openLastCollapses]);
+    openedLastCollapses(false, 1000);
+  }, [dispatch, openedLastCollapses]);
 
   const onValuesChange = (values) => {
     if (values?.corpoProcesso === '<p><br></p>') {
@@ -91,7 +77,7 @@ export default () => {
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
-    openLastCollapses(true, 50);
+    openedLastCollapses(true, 50);
   };
 
   return (
