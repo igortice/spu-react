@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 
 export default () => {
   const openedLastCollapses = useCallback((open = false, time = 500) => {
