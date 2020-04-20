@@ -1,5 +1,6 @@
-import './assets/less/styles.less';
+import './assets/less/_main.less';
 import 'react-quill/dist/quill.snow.css';
+import 'filepond/dist/filepond.min.css';
 
 import App from './configs/App';
 import { ConfigProvider } from 'antd';
