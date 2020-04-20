@@ -1,9 +1,9 @@
 import { Button, Collapse, Form, Typography } from 'antd';
-import { InboxOutlined, UploadOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import UploadAnexos from '~/components/UploadAnexos';
+import { UploadOutlined } from '@ant-design/icons';
 import useOpenedLastCollapses from '~/hooks/useOpenedLastCollapses';
 
 const { Title, Text } = Typography;
@@ -32,14 +32,6 @@ export default () => {
 
   const onValuesChange = (values) => {
     console.log(values);
-  };
-
-  const normFile = (e) => {
-    console.log('Upload event:', e);
-    if (Array.isArray(e)) {
-      return e;
-    }
-    return e && e.fileList;
   };
 
   return (
@@ -95,7 +87,7 @@ export default () => {
         <br />
 
         <Button size="large" disabled={false} block htmlType="submit">
-          Próximo <InboxOutlined />
+          Próximo <UploadOutlined />
         </Button>
       </Form>
     </>
