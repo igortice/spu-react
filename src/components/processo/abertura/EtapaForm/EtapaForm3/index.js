@@ -69,7 +69,7 @@ export default () => {
               noStyle
               wrapperCol={{ span: 24 }}
             >
-              <UploadAnexos />
+              <UploadAnexos acceptedFileTypes={['.pdf', '.docx']} />
             </Form.Item>
           </Collapse.Panel>
 
