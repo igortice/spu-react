@@ -2,7 +2,7 @@ import { Button, Collapse, Form, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import UploadAnexos from '~/components/UploadAnexos';
+import UploadFiles from '~/components/UploadFiles';
 import { UploadOutlined } from '@ant-design/icons';
 import useOpenedLastCollapses from '~/hooks/useOpenedLastCollapses';
 
@@ -58,7 +58,7 @@ export default () => {
           <Collapse.Panel
             header={
               <Title level={4}>
-                <Text type="secondary">Anexos</Text>
+                <Text type="secondary">Upload Arquivos</Text>
               </Title>
             }
             key="1"
@@ -69,7 +69,7 @@ export default () => {
               noStyle
               wrapperCol={{ span: 24 }}
             >
-              <UploadAnexos acceptedFileTypes={['.pdf', '.docx']} />
+              <UploadFiles acceptedFileTypes={['.pdf', '.docx']} />
             </Form.Item>
           </Collapse.Panel>
 
@@ -77,7 +77,7 @@ export default () => {
           <Collapse.Panel
             header={
               <Title level={4}>
-                <Text type="secondary">Outras Informações</Text>
+                <Text type="secondary">Publicação e Assinatura</Text>
               </Title>
             }
             key="2"

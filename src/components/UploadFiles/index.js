@@ -40,9 +40,9 @@ export default ({
       <span class="ant-typography">
         <div>Arraste o(s) arquivo(s) para essa região ou</div>
         <div class="filepond--label-action">clique aqui para anexar manualmente o(s) arquivo(s)</div>
-        <span style="font-size: 12px" class="ant-typography ant-typography-warning">formatos permitidos: ${acceptedFileTypes.join(
-          ', '
-        )}</span>
+        <span style="font-size: 12px" class="ant-typography ant-typography-warning">
+          formatos permitidos: ${acceptedFileTypes.join()}
+        </span>
       </span>
     </div>
   `;
