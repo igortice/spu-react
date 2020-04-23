@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import UploadFiles from '~/components/UploadFiles';
 import { UploadOutlined } from '@ant-design/icons';
+import UploadTable from '~/components/UploadTable';
 import useOpenedLastCollapses from '~/hooks/useOpenedLastCollapses';
 
 const { Title, Text } = Typography;
@@ -73,7 +74,7 @@ export default () => {
             </Form.Item>
           </Collapse.Panel>
 
-          {/* OUTRAS INFORMAÇÕES */}
+          {/* PUBLICAÇÃO ASSINATURA */}
           <Collapse.Panel
             header={
               <Title level={4}>
@@ -81,7 +82,9 @@ export default () => {
               </Title>
             }
             key="2"
-          ></Collapse.Panel>
+          >
+            <UploadTable />
+          </Collapse.Panel>
         </Collapse>
 
         <br />
